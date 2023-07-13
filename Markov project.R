@@ -1,10 +1,12 @@
 #Importing dataset
+install.packages("readxl")
 library(readxl)
-programdata <- read_excel("~/Desktop/Projects/programdata.xlsx")
-View(programdata)
+programdata_csv <- read_excel("~/Desktop/Projects/programdata.xlsx")
+View(programdata_csv)
 
-install.packages('markovchain') 
-library("markovchain")
+install.packages("markovchain") 
+library(markovchain)
+
 
 #Task 1.1
 #Current model----
@@ -88,7 +90,9 @@ library("dplyr")
 
 set.seed(123456789)
 
-#Generating simulations through using for loop --- n <- nrow(programdata_csv)
+#Generating simulations through using for loop --- 
+
+n <- nrow(programdata_csv)
 
 nsim = 1000
 
@@ -125,7 +129,7 @@ sim_benefit <- sapply(programdata_csv$benefit_22, function(x) rmarkovchain(n = 5
                        sim_current_model_25[j, i] <- sum(sim_benefit[3,] == current_states[j]) 
                        sim_current_model_26[j, i] <- sum(sim_benefit[4,] == current_states[j]) 
                        sim_current_model_27[j, i] <- sum(sim_benefit[5,] == current_states[j])
-                                                                             } }
+                                                                           } }
 #2023 distribution----
 benefit_distribution_23 = rowMeans(sim_current_model_23)/n
 
@@ -383,7 +387,9 @@ par(xpd=FALSE)
 shapiro.test(sim_updated_cost_2027_int)
 
 #Descriptive statistics
-#2024 summary(current_cost_2024) sd(current_cost_2024)
+#2024 
+
+summary(current_cost_2024) sd(current_cost_2024)
 
 summary(sim_updated_cost_2024_wi) sd(sim_updated_cost_2024_wi)
 
@@ -427,7 +433,8 @@ barplot(long_run_cost_vec,
         space = c(0.8, 0.8))
 
 #Monte carlo simulation
-#Setup set.seed(345)
+
+Setup set.seed(345)
 
 runs <- 10000000
 
